@@ -49,12 +49,27 @@ const CoffeeVendorMain = () => {
   };
 
   const extraSubmitHandle = (chosenExtra) => {
+    if (chosenExtra !== "Select extras") {
+      setExtras((currentExtras) => {
+        const newExtras = { ...currentExtras };
+        newExtras[chosenExtra] += 1;
+        setStock((currentStock) => {
+          const newStock = { ...currentStock };
+          newStock[chosenExtra] -= 1;
+          return newStock;
+        });
+        return newExtras;
+      });
+    }
+  };
+
+  const removeExtra = (extraToRemove) => {
     setExtras((currentExtras) => {
       const newExtras = { ...currentExtras };
-      newExtras[chosenExtra] += 1;
+      newExtras[extraToRemove] -= 1;
       setStock((currentStock) => {
         const newStock = { ...currentStock };
-        newStock[chosenExtra] -= 1;
+        newStock[extraToRemove] += 1;
         return newStock;
       });
       return newExtras;
@@ -68,6 +83,7 @@ const CoffeeVendorMain = () => {
       </Link>
       <p> Enjoy!!!</p>
       <select
+        className="coffeeVendor_coffe_dropdown"
         onChange={(event) => {
           const chosenCoffeeType = event.target.value;
           coffeeSubmitHandle(chosenCoffeeType);
@@ -91,6 +107,7 @@ const CoffeeVendorMain = () => {
       </select>
       <br></br>
       <select
+        className="coffeeVendor_extras_dropdown"
         onClick={(event) => {
           const chosenExtra = event.target.value;
           extraSubmitHandle(chosenExtra);
@@ -108,14 +125,31 @@ const CoffeeVendorMain = () => {
         })}
       </select>
       <h3>
-        Current order: <br></br>
-        <br></br>Coffee: {order.coffee}
+        <u>Current order: </u>
+        <br></br>
+        <br></br>
+        Coffee:
+        <span className="coffeeVendor_selectedCoffee">
+          {" "}
+          {order.coffee} {order.coffee === "none" ? `selected` : ""}
+        </span>
       </h3>
       <ul className="coffeeVendor_chosen_extras_list">
-        Extras selected:
+        <p className="coffeeVendor_extras_selected_title">Extras selected:</p>
         {extrasArray.map((extra) => {
           if (extra[1] !== 0) {
-            return <li key={extra}>{`${extra[0]} x${extra[1]}`}</li>;
+            return (
+              <li key={extra}>
+                {`${extra[0]} x${extra[1]}`}
+                <button
+                  onClick={() => {
+                    removeExtra(extra[0]);
+                  }}
+                >
+                  Remove
+                </button>
+              </li>
+            );
           }
         })}
       </ul>

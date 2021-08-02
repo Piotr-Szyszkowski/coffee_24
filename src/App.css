@@ -26,12 +26,33 @@
   color: white;
 }
 
+.coffeeVendor_coffe_dropdown {
+  font-size: 20px;
+}
+
+.coffeeVendor_extras_dropdown {
+  font-size: 17px;
+}
+
+.coffeeVendor_extras_selected_title {
+  font-size: 32px;
+}
+
 .coffeeVendor_stock_list {
+  margin-top: 122px;
+  text-align: left;
   list-style-type: none;
 }
 
 .coffeeVendor_chosen_extras_list {
   list-style-type: none;
+}
+
+.coffeeVendor_currentOrder {
+}
+
+.coffeeVendor_selectedCoffee {
+  font-size: 24px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
