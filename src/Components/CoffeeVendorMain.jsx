@@ -20,7 +20,6 @@ const CoffeeVendorMain = () => {
     "brown sugar": 0,
     vanilla: 0,
   });
-  console.log(extras);
   const extrasArray = Object.entries(extras);
   useEffect(() => {
     if (order.coffee !== "none") {
@@ -53,6 +52,11 @@ const CoffeeVendorMain = () => {
     setExtras((currentExtras) => {
       const newExtras = { ...currentExtras };
       newExtras[chosenExtra] += 1;
+      setStock((currentStock) => {
+        const newStock = { ...currentStock };
+        newStock[chosenExtra] -= 1;
+        return newStock;
+      });
       return newExtras;
     });
   };
@@ -87,7 +91,7 @@ const CoffeeVendorMain = () => {
       </select>
       <br></br>
       <select
-        onChange={(event) => {
+        onClick={(event) => {
           const chosenExtra = event.target.value;
           extraSubmitHandle(chosenExtra);
         }}
