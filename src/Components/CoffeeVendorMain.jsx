@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { coffees } from "../DB/coffees";
 
 const CoffeeVendorMain = () => {
-  const [stock, setStock] = useState({ coffee_shots: 10 });
+  const [stock, setStock] = useState({ coffee_shots: 10, milk: 10 });
   const [order, setOrder] = useState({ coffee: "none" });
   const [previousOrder, setPreviousOrder] = useState({ coffee: "none" });
   useEffect(() => {
@@ -14,6 +14,10 @@ const CoffeeVendorMain = () => {
           currentStock.coffee_shots +
           coffees[previousOrder.coffee].shots_cost -
           coffees[order.coffee].shots_cost;
+        newStock.milk =
+          currentStock.milk +
+          coffees[previousOrder.coffee].milk_cost -
+          coffees[order.coffee].milk_cost;
         return newStock;
       });
     }
@@ -45,13 +49,16 @@ const CoffeeVendorMain = () => {
         <option value="Americano single shot">Americano single shot</option>
         <option value="Americano double shot">Americano double shot</option>
         <option value="Flat white">Flat white</option>
+        <option value="Space Rocket">Space Rocket</option>
+        <option value="Latte">Latte</option>
       </select>
       <h3>
         Current order: <br></br>Coffee: {order.coffee}
       </h3>
       <ul className="coffeeVendor_stock_list">
-        Stock:
+        In Stock:
         <li>Coffee Shots: {stock.coffee_shots}</li>
+        <li>Milk: {stock.milk}</li>
       </ul>
     </div>
   );
