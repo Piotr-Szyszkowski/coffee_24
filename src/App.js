@@ -1,18 +1,20 @@
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import imageSrc from "./Images/strong-coffee.jpg";
+import CoffeeVendorMain from "./Components/CoffeeVendorMain";
+import Home from "./Components/Home";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img
-          src={imageSrc}
-          className="homepage_mainImage"
-          alt="a cup of strong and aromatic coffee"
-        />
-        <h1>Welcome to Coffee 24</h1>
-        <p>Best coffee north of Manchester</p>
-      </header>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+
+        <Route exact path="/coffee_vendor">
+          <CoffeeVendorMain />
+        </Route>
+      </Switch>
     </div>
   );
 }
