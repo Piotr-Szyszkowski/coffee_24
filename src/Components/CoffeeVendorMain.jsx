@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { coffees } from "../DB/coffees";
 
 const CoffeeVendorMain = () => {
+  const coffeesArray = Object.entries(coffees);
   const [stock, setStock] = useState({ coffee_shots: 10, milk: 10 });
   const [order, setOrder] = useState({ coffee: "none" });
   const [previousOrder, setPreviousOrder] = useState({ coffee: "none" });
@@ -45,12 +46,27 @@ const CoffeeVendorMain = () => {
           coffeeSubmitHandle(chosenCoffeeType);
         }}
       >
-        <option hidden>Select coffe type...</option>
+        {coffeesArray.map((coffee) => {
+          if (coffee[0] === "none") {
+            return (
+              <option hidden value={coffee[0]} key={coffee[0]}>
+                {`${coffee[0]}`}
+              </option>
+            );
+          } else {
+            return (
+              <option value={coffee[0]} key={coffee[0]}>
+                {`${coffee[0]}`}
+              </option>
+            );
+          }
+        })}
+        {/* <option hidden>Select coffe type...</option>
         <option value="Americano single shot">Americano single shot</option>
         <option value="Americano double shot">Americano double shot</option>
         <option value="Flat white">Flat white</option>
         <option value="Space Rocket">Space Rocket</option>
-        <option value="Latte">Latte</option>
+        <option value="Latte">Latte</option> */}
       </select>
       <h3>
         Current order: <br></br>Coffee: {order.coffee}
